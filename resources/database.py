@@ -18,6 +18,7 @@ from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 from sqlalchemy.exc import SQLAlchemyError
 from handlers.bot_functions_common import get_user_id_hash
 from sqlalchemy.ext.asyncio import create_async_engine
+from resources.values import POSTGRES_USER, POSTGRES_DB, POSTGRES_PASSWORD
 
 user_logger = create_local_logger()
 
@@ -30,7 +31,6 @@ class User(base):
     user_name = Column(String, unique=True)
     chat_id = Column(Integer, unique=True)
     registered_time = Column(
-        # TIMESTAMP, server_default=func.datetime("now", "localtime")
         TIMESTAMP,
         server_default=func.now(),
     )
@@ -85,12 +85,8 @@ class DataBase:
             "metadata",
         }
 
-        sync_connection_string = (
-            f"postgresql+psycopg2://postgres:1243@localhost:5432/{db_name}"
-        )
-        async_connection_string = (
-            f"postgresql+asyncpg://postgres:1243@localhost:5432/{db_name}"
-        )
+        sync_connection_string = f"postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@localhost:5432/{POSTGRES_DB}"
+        async_connection_string = f"postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@localhost:5432/{POSTGRES_DB}"
 
         self.engine = create_engine(sync_connection_string, future=True)
         self.async_engine = create_async_engine(async_connection_string, future=True)

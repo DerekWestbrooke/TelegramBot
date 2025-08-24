@@ -1,5 +1,15 @@
+from dotenv import load_dotenv
+import os
+
+# Environment variables
+load_dotenv()
+API_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+NEURAL_NETWORK_API_KEY = os.getenv("NEURAL_NETWORK_API_KEY")
+POSTGRES_USER = os.getenv("POSTGRES_USER")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+POSTGRES_DB = os.getenv("POSTGRES_DB")
+
 # Files_names
-db_name = "telegram_bot_database"
 log_file_name = "events.log"
 
 # Variables

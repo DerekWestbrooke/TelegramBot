@@ -3,11 +3,9 @@ import os
 
 from dotenv import load_dotenv
 from resources.database import create_local_logger
-from resources.values import message_neural_network_not_found
+from resources.values import message_neural_network_not_found, NEURAL_NETWORK_API_KEY
 
 user_logger = create_local_logger()
-load_dotenv()
-NEURAL_NETWORK_API_KEY = os.getenv("NEURAL_NETWORK_API_KEY")
 
 
 def is_api_exist():

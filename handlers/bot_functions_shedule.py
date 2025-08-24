@@ -8,7 +8,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from resources.bot import bot
 from resources.bot_keyboards import communal_main_menu_button
 from resources.user_logger import create_local_logger
-from resources.values import db_name, message_payment_time
+from resources.values import POSTGRES_DB, message_payment_time
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
@@ -50,8 +50,9 @@ async def notifications_monitoring(async_session_maker):
                 )
 
             if start_time - end_time == timedelta(minutes=1):
+                notif_id = notif.id
                 await session.execute(
-                    delete(Notification).where(Notification.id == notif.id)
+                    delete(Notification).where(Notification.id == notif_id)
                 )
             else:
                 notif.start_time = start_time + timedelta(days=1)
